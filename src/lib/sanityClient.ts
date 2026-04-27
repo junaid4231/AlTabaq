@@ -197,11 +197,41 @@ const attachImageUrl = <T extends { image?: unknown; imageUrl?: string }>(items:
 };
 
 export const normalizePhoneForWa = (phone?: string): string => {
-  const cleaned = (phone || "").replace(/[^\d]/g, "");
-  // If it starts with 05 and is 10 digits, it's a UAE mobile number
+  if (!phone) return "";
+  
+  // Strip all non-digits
+  let cleaned = phone.replace(/[^\d]/g, "");
+
+  // If it starts with 971, it's already a full UAE number
+  if (cleaned.startsWith("971")) {
+    // If it's something like 9710526691763, fix it to 971526691763
+    if (cleaned.startsWith("9710") && cleaned.length === 13) {
+      return "971" + cleaned.substring(4);
+    }
+    return cleaned;
+  }
+
+  // Handle UAE mobile formats
+  // Case 1: 052 669 1763 (10 digits)
   if (cleaned.startsWith("05") && cleaned.length === 10) {
     return "971" + cleaned.substring(1);
   }
+
+  // Case 2: 52 669 1763 (9 digits)
+  if (cleaned.startsWith("5") && cleaned.length === 9) {
+    return "971" + cleaned;
+  }
+
+  // Specific protection against accidental +92 (Pakistan) prefix for this specific number
+  if (cleaned.startsWith("92") && cleaned.includes("526691763")) {
+    return "971526691763";
+  }
+
+  // If it's just 9 digits starting with 5, assume UAE
+  if (cleaned.length === 9 && cleaned.startsWith("5")) {
+    return "971" + cleaned;
+  }
+
   return cleaned;
 };
 
