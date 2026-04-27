@@ -68,19 +68,6 @@ export type HomepageData = {
   deals: Deal[];
 };
 
-const popularDishesQuery = groq`
-  *[_type == "dish" && isPopular == true] | order(_createdAt desc)[0...9] {
-    _id,
-    name,
-    price,
-    image,
-    "category": category->name,
-    isPopular,
-    description,
-    variants
-  }
-`;
-
 const allDishesQuery = groq`
   *[_type == "dish"] | order(category->name asc, name asc) {
     _id,

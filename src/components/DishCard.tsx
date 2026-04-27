@@ -8,16 +8,6 @@ type DishCardProps = {
   dish: Dish;
   whatsappNumber: string;
 };
-import Image from "next/image";
-
-import type { Dish } from "@/lib/sanityClient";
-import { useCart } from "@/context/CartContext";
-
-
-type DishCardProps = {
-  dish: Dish;
-  whatsappNumber: string;
-};
 
 export default function DishCard({ dish, whatsappNumber }: DishCardProps) {
   const { addItem } = useCart();

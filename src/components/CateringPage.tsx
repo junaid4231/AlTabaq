@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import RestaurantHeader from "./RestaurantHeader";
 import RestaurantFooter from "./RestaurantFooter";
@@ -23,25 +22,7 @@ export default function CateringPage({ settings, whatsappNumber }: CateringPageP
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 1.1]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.5]);
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
+  /* Animation variants moved or unused */
 
   return (
     <div ref={containerRef} className="bg-[#f8f6f2] text-[#1f1b16]">
@@ -76,7 +57,7 @@ export default function CateringPage({ settings, whatsappNumber }: CateringPageP
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               className="font-heading text-7xl sm:text-8xl md:text-[10rem] text-white leading-[0.85] tracking-tighter"
             >
               Art of the <br /> <span className="text-[#d29a2f]">Feast</span>
@@ -122,7 +103,7 @@ export default function CateringPage({ settings, whatsappNumber }: CateringPageP
                </div>
                <div className="max-w-[35%]">
                   <p className="text-gray-500 border-l border-black/10 pl-4 sm:pl-8 leading-relaxed italic text-[10px] sm:text-base">
-                    "We deliver the soul of Pakistan to your venue."
+                    &quot;We deliver the soul of Pakistan to your venue.&quot;
                   </p>
                </div>
             </div>

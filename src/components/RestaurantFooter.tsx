@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
 
 import type { Settings } from "@/lib/sanityClient";
 
@@ -15,7 +15,7 @@ export default function RestaurantFooter({
   settings,
   whatsappNumber,
 }: RestaurantFooterProps) {
-  const { restaurantName, phone, address, openingHours, facebookUrl, instagramUrl, logoUrl } = settings;
+  const { restaurantName, phone, address, openingHours, facebookUrl, instagramUrl } = settings;
   const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
   return (

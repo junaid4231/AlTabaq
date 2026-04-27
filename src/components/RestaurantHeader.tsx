@@ -31,7 +31,7 @@ export default function RestaurantHeader({
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
       className="fixed top-0 left-0 right-0 z-50 border-b border-[#e8dece]/50 bg-brand-bg/80 backdrop-blur-md shadow-sm"
     >
       <div className="mx-auto hidden h-20 w-full max-w-7xl grid-cols-3 items-center px-4 md:grid md:px-6 lg:px-8">

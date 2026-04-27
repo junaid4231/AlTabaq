@@ -10,7 +10,7 @@ type CartTrayProps = {
 
 export default function CartTray({ whatsappNumber }: CartTrayProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { items, removeItem, updateQuantity, totalPrice, totalItems, clearCart } = useCart();
+  const { items, updateQuantity, totalPrice, totalItems, clearCart } = useCart();
 
   const cleanNumber = whatsappNumber?.replace(/\D/g, "");
   

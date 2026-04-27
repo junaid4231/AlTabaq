@@ -40,7 +40,7 @@ export default function RestaurantMenuPage({
   category,
   whatsappNumber,
 }: RestaurantMenuPageProps) {
-  const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
+  const [selectedDish, setSelectedDish] = useState<Dish | Deal | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const { addItem } = useCart();
@@ -83,7 +83,7 @@ export default function RestaurantMenuPage({
       transition: {
         delay: i * 0.08,
         duration: 0.8,
-        ease: [0.16, 1, 0.3, 1]
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number]
       }
     })
   };
@@ -119,7 +119,7 @@ export default function RestaurantMenuPage({
             <motion.h1 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               className="font-heading text-7xl md:text-9xl leading-none"
             >
               The <span className="italic text-[#f6d79f]">Menu</span>
@@ -207,7 +207,7 @@ export default function RestaurantMenuPage({
                     viewport={{ once: true, margin: "-50px" }}
                     variants={fadeInUp}
                     onClick={() => {
-                      setSelectedDish(deal as any);
+                      setSelectedDish(deal);
                       setIsModalOpen(true);
                     }}
                     className="group relative flex flex-col overflow-hidden rounded-[2.5rem] border-2 border-[#c08a29]/30 bg-[#13110e] text-white cursor-pointer transition-all duration-500 hover:-translate-y-3 hover:border-[#c08a29] hover:shadow-[0_20px_50px_rgba(192,138,41,0.15)]"

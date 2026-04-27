@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import type { Dish } from "@/lib/sanityClient";
+import type { Dish, Deal } from "@/lib/sanityClient";
 import { useCart } from "@/context/CartContext";
 
 
 type DishModalProps = {
-  dish: Dish | null;
+  dish: Dish | Deal | null;
   isOpen: boolean;
   onClose: () => void;
   whatsappNumber: string;
@@ -19,17 +19,21 @@ export default function DishModal({ dish, isOpen, onClose, whatsappNumber }: Dis
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
 
   useEffect(() => {
-    setSelectedVariantIndex(0);
+    Promise.resolve().then(() => {
+      setSelectedVariantIndex(0);
+    });
   }, [dish]);
 
   if (!dish) return null;
 
-  const currentPrice = (dish.variants && dish.variants.length > 0 
-    ? dish.variants[selectedVariantIndex].price 
+  const variants = 'variants' in dish ? dish.variants : undefined;
+
+  const currentPrice = ((variants && variants.length > 0)
+    ? variants[selectedVariantIndex].price 
     : dish.price) || 0;
     
-  const currentSize = dish.variants && dish.variants.length > 0 
-    ? ` (${dish.variants[selectedVariantIndex].size})` 
+  const currentSize = (variants && variants.length > 0)
+    ? ` (${variants[selectedVariantIndex].size})` 
     : "";
 
   const waMessage = encodeURIComponent(`Hi! I'd like to order "${dish.name}${currentSize}" for AED ${currentPrice}.`);
@@ -79,7 +83,7 @@ export default function DishModal({ dish, isOpen, onClose, whatsappNumber }: Dis
               {/* Text Section */}
               <div className="flex flex-col p-6 md:w-1/2 md:p-12">
                 <p className="text-[10px] font-bold tracking-[0.3em] text-[#d29a2f] uppercase">
-                  {(dish as any).category || "Special Deal"}
+                  {'category' in dish ? dish.category : "Special Deal"}
                 </p>
                 <h2 className="mt-4 font-heading text-4xl text-[#1f1b16]">{dish.name}</h2>
                 <div className="mt-6 flex-1">
@@ -90,11 +94,11 @@ export default function DishModal({ dish, isOpen, onClose, whatsappNumber }: Dis
                 </div>
 
                 <div className="mt-8 flex flex-col gap-6 pt-6 border-t border-black/5">
-                  {dish.variants && dish.variants.length > 0 && (
+                  {variants && variants.length > 0 && (
                     <div>
                       <h4 className="text-[10px] font-bold text-[#8a6a3f] uppercase tracking-[0.2em]">Select Size</h4>
                       <div className="mt-3 flex flex-wrap gap-2">
-                        {dish.variants.map((v, i) => (
+                        {variants.map((v, i) => (
                           <button
                             key={v.size}
                             onClick={() => setSelectedVariantIndex(i)}

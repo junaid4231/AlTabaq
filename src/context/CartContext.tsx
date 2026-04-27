@@ -25,17 +25,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage on mount safely
   useEffect(() => {
-    const savedCart = localStorage.getItem("al-tabaq-cart");
-    if (savedCart) {
-      try {
-        setItems(JSON.parse(savedCart));
-      } catch (e) {
-        console.error("Failed to parse cart", e);
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("al-tabaq-cart");
+      if (savedCart) {
+        try {
+          const parsed = JSON.parse(savedCart);
+          Promise.resolve().then(() => {
+            setItems(parsed);
+          });
+        } catch (e) {
+          console.error("Failed to parse cart", e);
+        }
       }
+      Promise.resolve().then(() => {
+        setIsInitialized(true);
+      });
     }
-    setIsInitialized(true);
   }, []);
 
   // Save cart to localStorage on change

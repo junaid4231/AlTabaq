@@ -31,7 +31,7 @@ export default function AboutContent({ settings }: { settings: Settings }) {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
     }
   };
 
@@ -64,7 +64,7 @@ export default function AboutContent({ settings }: { settings: Settings }) {
           <motion.h1
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
             className="font-heading text-7xl sm:text-8xl md:text-[10rem] text-white leading-none"
           >
             Our Legacy
@@ -103,7 +103,7 @@ export default function AboutContent({ settings }: { settings: Settings }) {
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
                 className="relative z-10 rounded-tl-[3rem] sm:rounded-tl-[10rem] rounded-br-[3rem] sm:rounded-br-[10rem] overflow-hidden shadow-xl sm:shadow-2xl aspect-[4/5]"
               >
                 <Image
@@ -128,12 +128,12 @@ export default function AboutContent({ settings }: { settings: Settings }) {
                 </motion.h2>
                 <motion.div variants={fadeInUp} className="mt-2 sm:mt-10 space-y-2 sm:space-y-8 text-[10px] sm:text-lg text-gray-600 leading-relaxed font-light">
                   <p className="border-l-2 sm:border-l-4 border-[#c08a29] pl-2 sm:pl-6 italic text-xs sm:text-xl text-[#1f1b16]">
-                    "We don't just cook food; we recreate memories."
+                    &quot;We don&apos;t just cook food; we recreate memories.&quot;
                   </p>
                   <p className="line-clamp-4 sm:line-clamp-none">
                     {settings.restaurantName} was established to elevate Pakistani 
                     culinary arts to a global luxury experience. What started as 
-                    a small tandoor has blossomed into Ajman's premier destination.
+                    a small tandoor has blossomed into Ajman&apos;s premier destination.
                   </p>
                   <p className="hidden sm:block">
                     We maintain our heritage through strict adherence to age-old methods—hand-pounding 
@@ -171,7 +171,7 @@ export default function AboutContent({ settings }: { settings: Settings }) {
                 </h2>
                 <div className="space-y-2 sm:space-y-6 text-[10px] sm:text-lg text-gray-600 leading-relaxed font-light">
                   <p className="text-xs sm:text-xl text-[#1f1b16] font-medium italic border-l-2 sm:border-l-4 border-[#c08a29] pl-2 sm:pl-6 py-1 sm:py-2">
-                    "Al Tabaq is a sanctuary of homeland taste."
+                    &quot;Al Tabaq is a sanctuary of homeland taste.&quot;
                   </p>
                   <p className="line-clamp-3 sm:line-clamp-none">
                     Our journey began with a commitment: to treat every guest like family and every dish like a masterpiece. 

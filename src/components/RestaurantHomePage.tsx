@@ -35,23 +35,22 @@ export default function RestaurantHomePage({
 }: RestaurantHomePageProps) {
   const router = useRouter();
   const { addItem } = useCart();
-  const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
+  const [selectedDish, setSelectedDish] = useState<Dish | Deal | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(selectedCategory || "");
 
   // Synchronize state with URL prop changes (back/forward buttons)
   useEffect(() => {
-    setActiveTab(selectedCategory || "");
+    // Synchronization in a microtask to avoid synchronous cascading render warning
+    Promise.resolve().then(() => {
+      setActiveTab(selectedCategory || "");
+    });
   }, [selectedCategory]);
 
   const featured = popularDishes.length
     ? popularDishes.slice(0, 4)
     : dishes.slice(0, 4);
 
-  const categoryLabels = [
-    ...categories.filter(c => c.name !== "Special Deals").map(c => c.name),
-    "Special Deals"
-  ];
   // Always get exactly 5 showcase categories
   const featuredCategories = categories.filter(c => c.isFeatured && c.name !== "Special Deals").slice(0, 5);
   const otherCategories = categories.filter(c => !c.isFeatured && c.name !== "Special Deals");
@@ -78,9 +77,6 @@ export default function RestaurantHomePage({
   const visibleHomeMenuDishes = (homeMenuDishes.length > 0) ? homeMenuDishes.slice(0, 4) : featured;
   const buildHomeCategoryLink = (categoryName: string) =>
     `/menu?category=${encodeURIComponent(categoryName)}`;
-  const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    settings.address,
-  )}`;
 
   return (
     <div className="bg-[#f8f6f2] text-[#1f1b16]">
@@ -134,7 +130,7 @@ export default function RestaurantHomePage({
                   key={`${category.name}-${dish?._id ?? "fallback"}`}
                   variants={{
                     hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
                   }}
                 >
                   <Link
@@ -223,7 +219,7 @@ export default function RestaurantHomePage({
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.1, duration: 0.8 }}
                     onClick={() => {
-                      setSelectedDish(deal as any);
+                      setSelectedDish(deal);
                       setIsModalOpen(true);
                     }}
                     className="group relative flex h-full flex-col overflow-hidden rounded-[2.5rem] bg-[#1a1614] border-2 border-[#c08a29]/30 cursor-pointer transition-all duration-500 hover:border-[#c08a29]"
@@ -349,7 +345,7 @@ export default function RestaurantHomePage({
                       visible: { opacity: 1, y: 0 }
                     }}
                     onClick={() => {
-                      setSelectedDish(deal as any);
+                      setSelectedDish(deal);
                       setIsModalOpen(true);
                     }}
                     className="group relative flex flex-col overflow-hidden rounded-[2.5rem] border-2 border-[#d29a2f]/30 bg-[#13110e] text-white cursor-pointer transition-all duration-500 hover:-translate-y-3 hover:border-[#d29a2f] hover:shadow-[0_20px_50px_rgba(210,154,47,0.15)]"
