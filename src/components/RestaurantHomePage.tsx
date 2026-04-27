@@ -24,6 +24,8 @@ type RestaurantHomePageProps = {
   selectedCategory?: string;
 };
 
+import FounderSection from "./FounderSection";
+
 export default function RestaurantHomePage({
   settings,
   dishes,
@@ -523,6 +525,8 @@ export default function RestaurantHomePage({
         </section>
         <div className="section-divider" />
 
+        <FounderSection />
+        <div className="section-divider" />
         <Contact settings={settings} whatsappNumber={whatsappNumber} />
 
       </main>

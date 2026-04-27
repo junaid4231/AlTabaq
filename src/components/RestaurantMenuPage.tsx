@@ -156,20 +156,34 @@ export default function RestaurantMenuPage({
               </p>
             </div>
             
-            <div className="relative w-full max-w-sm group">
-              <input
-                type="text"
-                placeholder="Search your favorite dish..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-full border border-[#d9cdbb] bg-[#f8f6f2] py-4 pl-14 pr-8 text-sm transition-all duration-300 focus:border-[#b98529] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#b98529]/5 shadow-inner"
-              />
-              <svg 
-                className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-[#8a6a3f] transition-transform duration-300 group-focus-within:scale-110 group-focus-within:text-[#b98529]" 
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            <div className="flex w-full max-w-sm flex-col gap-4">
+              <div className="group relative w-full">
+                <input
+                  type="text"
+                  placeholder="Search your favorite dish..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-full border border-[#d9cdbb] bg-[#f8f6f2] py-4 pl-14 pr-8 text-sm transition-all duration-300 focus:border-[#b98529] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#b98529]/5 shadow-inner"
+                />
+                <svg 
+                  className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-[#8a6a3f] transition-transform duration-300 group-focus-within:scale-110 group-focus-within:text-[#b98529]" 
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <a 
+                href="/Menu.pdf" 
+                target="_blank" 
+                rel="noreferrer"
+                className="group/btn flex items-center justify-center gap-3 rounded-full bg-[#1f1b16] py-4 text-[10px] font-bold tracking-[0.2em] text-white uppercase transition-all duration-300 hover:bg-[#c08a29] hover:shadow-[0_10px_20px_rgba(192,138,41,0.2)] active:scale-95"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+                <svg className="h-4 w-4 text-[#c08a29] transition-colors group-hover/btn:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>See Brochure (PDF)</span>
+              </a>
             </div>
           </div>
 

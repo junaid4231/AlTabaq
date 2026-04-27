@@ -139,9 +139,14 @@ export default function RestaurantFooter({
       {/* Copyright Footer */}
       <div className="border-t border-white/5 bg-black/40 py-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between px-4 sm:px-6 md:flex-row lg:px-8">
-          <p className="text-[10px] tracking-[0.3em] text-gray-500 uppercase">
-            © {new Date().getFullYear()} {restaurantName}. Handcrafted for excellence.
-          </p>
+          <div className="flex flex-col items-center gap-2 md:items-start">
+            <p className="text-[10px] tracking-[0.3em] text-gray-500 uppercase">
+              © {new Date().getFullYear()} {restaurantName}. Handcrafted for excellence.
+            </p>
+            <p className="text-[9px] tracking-[0.2em] text-gray-600 uppercase">
+              Developed by <a href="https://www.linkedin.com/company/zephortech" target="_blank" rel="noreferrer" className="text-[#c08a29] hover:text-[#d29a2f] transition-colors font-bold">ZephorTech</a>
+            </p>
+          </div>
           <div className="mt-6 flex items-center gap-2 md:mt-0">
              <span className="text-[10px] text-gray-600 uppercase tracking-widest mr-4">Follow us for updates</span>
              <div className="h-[1px] w-12 bg-white/10" />

@@ -65,7 +65,7 @@ export default function Hero({ whatsappNumber, settings }: HeroProps) {
             className="mt-10 flex flex-row items-center gap-3 sm:gap-6"
           >
             <a
-              href="#menu"
+              href="/menu"
               className="group relative flex-1 sm:flex-none inline-flex sm:min-w-[180px] items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl border-2 border-white/30 bg-black/20 px-4 py-3 sm:px-8 sm:py-4 text-[13px] sm:text-base font-heading font-bold text-white backdrop-blur-md transition-all duration-500 hover:border-[#c08a29] hover:bg-[#c08a29]"
             >
               <span className="relative z-10 drop-shadow-sm">Explore Menu</span>
