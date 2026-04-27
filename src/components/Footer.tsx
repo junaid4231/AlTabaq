@@ -107,10 +107,10 @@ export default function Footer({ restaurantName }: FooterProps) {
             <ul className="space-y-3 text-sm text-white/75">
               <li>
                 <a
-                  href="tel:+971500000000"
+                  href="tel:+971526691763"
                   className="transition hover:text-white"
                 >
-                  +971 50 000 0000
+                  +971 52 669 1763
                 </a>
               </li>
               <li>

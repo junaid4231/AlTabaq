@@ -181,8 +181,8 @@ const fallbackCategories: Category[] = [
 
 const fallbackSettings: Settings = {
   restaurantName: "Al Tabaq Restaurant",
-  phone: "0526691763",
-  whatsapp: "0526691763",
+  phone: "+971 52 669 1763",
+  whatsapp: "+971 52 669 1763",
   address: "AL TABAQ RESTAURANT JURF2 OPP HAMRIYA FREE ZONE GATE 2 SALAAM CAMP AJMAN",
   openingHours: "Daily: 11:00 AM - 1:00 AM",
 };
