@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 
+import { isDeliveryActive } from "@/lib/deliveryUtils";
 import type { Settings } from "@/lib/sanityClient";
 
 type HeroProps = {
@@ -59,6 +60,41 @@ export default function Hero({ whatsappNumber, settings }: HeroProps) {
           </motion.p>
 
           <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.0, duration: 0.8 }}
+            className="mt-6 flex flex-wrap items-center gap-3"
+          >
+            <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-md border border-white/10">
+              <span className={`flex h-2 w-2 rounded-full ${
+                isDeliveryActive(
+                  settings.deliveryShift1Start,
+                  settings.deliveryShift1End,
+                  settings.deliveryShift2Start,
+                  settings.deliveryShift2End
+                ) ? 'bg-green-500 animate-pulse' : 'bg-amber-500'
+              }`} />
+              <span className="text-xs font-bold text-white uppercase tracking-wider">
+                {isDeliveryActive(
+                  settings.deliveryShift1Start,
+                  settings.deliveryShift1End,
+                  settings.deliveryShift2Start,
+                  settings.deliveryShift2End
+                ) ? 'Accepting Orders' : 'Pre-orders Only'}
+              </span>
+            </div>
+            
+            <div className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 backdrop-blur-md border border-white/5">
+              <svg className="h-3.5 w-3.5 text-[#c08a29]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-xs font-medium text-white/90 uppercase tracking-widest">
+                {settings.deliveryShift1Start || "12 PM"} - {settings.deliveryShift1End || "4 PM"} & {settings.deliveryShift2Start || "6 PM"} - {settings.deliveryShift2End || "11 PM"}
+              </span>
+            </div>
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.8 }}
@@ -94,10 +130,8 @@ export default function Hero({ whatsappNumber, settings }: HeroProps) {
             </div>
             <div className="w-[1px] bg-white/20" />
             <div>
-              <p className="font-heading text-3xl font-bold text-white">
-                {settings.averageDeliveryTime || "30 min"}
-              </p>
-              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Average Delivery</p>
+              <p className="font-heading text-3xl font-bold text-white">30 MIN</p>
+              <p className="text-sm text-white/80 uppercase tracking-wider mt-1">Avg Delivery Time</p>
             </div>
           </motion.div>
         </motion.div>

@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { calculateDistance, calculateDeliveryFee } from "@/lib/deliveryUtils";
 
 export type CartItem = {
   id: string;
@@ -17,6 +18,14 @@ type CartContextType = {
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
+  // Delivery related
+  userCoords: { lat: number; lng: number } | null;
+  userDistance: number | null;
+  deliveryFee: number;
+  setDeliveryLocation: (lat: number, lng: number, restaurantLat: number, restaurantLng: number, freeRadius: number, costPerKm: number) => void;
+  resetDeliveryLocation: () => void;
+  isTrayOpen: boolean;
+  setIsTrayOpen: (open: boolean) => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -24,6 +33,12 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
+
+  // Delivery State
+  const [userCoords, setUserCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [userDistance, setUserDistance] = useState<number | null>(null);
+  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  const [isTrayOpen, setIsTrayOpen] = useState(false);
 
   // Load cart from localStorage on mount safely
   useEffect(() => {
@@ -84,6 +99,27 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const clearCart = () => setItems([]);
 
+  const setDeliveryLocation = (
+    lat: number,
+    lng: number,
+    restaurantLat: number,
+    restaurantLng: number,
+    freeRadius: number,
+    costPerKm: number
+  ) => {
+    setUserCoords({ lat, lng });
+    const dist = calculateDistance(lat, lng, restaurantLat, restaurantLng);
+    setUserDistance(dist);
+    const fee = calculateDeliveryFee(dist, freeRadius, costPerKm);
+    setDeliveryFee(fee);
+  };
+
+  const resetDeliveryLocation = () => {
+    setUserCoords(null);
+    setUserDistance(null);
+    setDeliveryFee(0);
+  };
+
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => {
     const itemPrice = Number(item.price) || 0;
@@ -100,6 +136,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         clearCart,
         totalItems,
         totalPrice,
+        userCoords,
+        userDistance,
+        deliveryFee,
+        setDeliveryLocation,
+        resetDeliveryLocation,
+        isTrayOpen,
+        setIsTrayOpen,
       }}
     >
       {children}

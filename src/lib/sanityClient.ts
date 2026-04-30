@@ -46,6 +46,14 @@ export type Settings = {
   menuDescription?: string;
   logoUrl?: string;
   heroVideoUrl?: string;
+  deliveryShift1Start?: string;
+  deliveryShift1End?: string;
+  deliveryShift2Start?: string;
+  deliveryShift2End?: string;
+  freeDeliveryRadius?: number;
+  costPerKm?: number;
+  restaurantLat?: number;
+  restaurantLng?: number;
 };
 
 export type Deal = {
@@ -112,7 +120,15 @@ const settingsQuery = groq`
     menuDescription,
     logo,
     "logoUrl": logo.asset->url,
-    "heroVideoUrl": heroVideo.asset->url
+    "heroVideoUrl": heroVideo.asset->url,
+    deliveryShift1Start,
+    deliveryShift1End,
+    deliveryShift2Start,
+    deliveryShift2End,
+    freeDeliveryRadius,
+    costPerKm,
+    restaurantLat,
+    restaurantLng
   }
 `;
 
@@ -185,6 +201,14 @@ const fallbackSettings: Settings = {
   whatsapp: "+971 52 669 1763",
   address: "AL TABAQ RESTAURANT JURF2 OPP HAMRIYA FREE ZONE GATE 2 SALAAM CAMP AJMAN",
   openingHours: "Daily: 11:00 AM - 1:00 AM",
+  deliveryShift1Start: "12:00",
+  deliveryShift1End: "16:00",
+  deliveryShift2Start: "18:00",
+  deliveryShift2End: "23:00",
+  freeDeliveryRadius: 5,
+  costPerKm: 3,
+  restaurantLat: 25.435,
+  restaurantLng: 55.485,
 };
 
 const attachImageUrl = <T extends { image?: unknown; imageUrl?: string }>(items: T[]): T[] => {

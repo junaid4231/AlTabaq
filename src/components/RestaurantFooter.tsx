@@ -109,13 +109,29 @@ export default function RestaurantFooter({
                   </a>
                 </div>
               </div>
-              <div className="space-y-4 border-l border-white/5 pl-8 sm:block hidden">
+              <div className="space-y-6 border-l border-white/5 pl-8 sm:block hidden">
                 <div className="flex items-start gap-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#c08a29]/10 text-[#c08a29]">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   </div>
-                  <div className="text-sm leading-6 text-gray-400 whitespace-pre-line">
-                    {openingHours}
+                  <div>
+                    <h5 className="text-[10px] font-black uppercase tracking-widest text-[#c08a29] mb-1">Restaurant Hours</h5>
+                    <div className="text-sm leading-6 text-gray-400 whitespace-pre-line">
+                      Open 24 Hours
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-500/10 text-green-500">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" /></svg>
+                  </div>
+                  <div>
+                    <h5 className="text-[10px] font-black uppercase tracking-widest text-green-500 mb-1">Delivery Hours</h5>
+                    <div className="text-sm leading-6 text-gray-400">
+                      {settings.deliveryShift1Start || "12 PM"} - {settings.deliveryShift1End || "4 PM"}<br />
+                      {settings.deliveryShift2Start || "6 PM"} - {settings.deliveryShift2End || "11 PM"}
+                    </div>
                   </div>
                 </div>
               </div>

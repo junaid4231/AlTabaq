@@ -17,7 +17,7 @@ export default function FeaturedDishCard({
   whatsappNumber,
   onOpenModal,
 }: FeaturedDishCardProps) {
-  const { addItem } = useCart();
+  const { addItem, setIsTrayOpen } = useCart();
   const orderText = encodeURIComponent(`Hi Al Tabaq! I'd like to order: ${dish.name} (Price: AED ${dish.price})`);
 
   return (
@@ -100,24 +100,10 @@ export default function FeaturedDishCard({
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            <motion.a
-              href={`https://wa.me/${whatsappNumber}?text=${orderText}`}
-              target="_blank"
-              rel="noreferrer"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex-1 inline-flex items-center justify-center w-full px-6 py-4 bg-brand-wa text-white rounded-xl font-bold text-base transition shadow-lg hover:shadow-xl hover:brightness-110"
-            >
-              Order Now
-            </motion.a>
-
             <motion.button
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               onClick={(e) => {
@@ -133,24 +119,14 @@ export default function FeaturedDishCard({
                   price: dish.price,
                   imageUrl: dish.imageUrl
                 });
+                setIsTrayOpen(true);
               }}
-              className="flex-1 inline-flex items-center justify-center w-full px-6 py-4 bg-brand-bg text-brand-cta border-2 border-brand-cta/20 rounded-xl font-bold text-base transition hover:bg-brand-cta hover:text-white"
+              className="flex-1 inline-flex items-center justify-center w-full px-6 py-4 bg-brand-cta text-white rounded-xl font-bold text-base transition shadow-lg hover:shadow-xl hover:brightness-110"
             >
-              {dish.variants && dish.variants.length > 0 ? (
-                <>
-                  <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                  View Options
-                </>
-              ) : (
-                <>
-                  <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                  Add to Tray
-                </>
-              )}
+              <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              {dish.variants && dish.variants.length > 0 ? "View Options" : "Quick Add & Order"}
             </motion.button>
           </div>
         </div>

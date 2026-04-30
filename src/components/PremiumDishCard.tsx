@@ -17,7 +17,7 @@ export default function PremiumDishCard({
   whatsappNumber,
   index = 0,
 }: PremiumDishCardProps) {
-  const { addItem } = useCart();
+  const { addItem, setIsTrayOpen } = useCart();
   const orderText = encodeURIComponent(`Hi Al Tabaq! I'd like to order: ${dish.name} (Price: AED ${dish.price})`);
 
   return (
@@ -98,37 +98,29 @@ export default function PremiumDishCard({
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-3">
-          <motion.a
-            href={`https://wa.me/${whatsappNumber}?text=${orderText}`}
-            target="_blank"
-            rel="noreferrer"
+          <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="flex-1 text-center py-2.5 sm:py-3 px-4 bg-brand-wa text-white rounded-xl font-bold text-[10px] sm:text-sm transition shadow-md hover:shadow-lg hover:brightness-110"
-          >
-            WhatsApp
-          </motion.a>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.9 }}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              if (dish.variants && dish.variants.length > 0) return; // Let card click handle modal
+              if (dish.variants && dish.variants.length > 0) return; 
               addItem({
                 id: dish._id,
                 name: dish.name,
                 price: dish.price,
                 imageUrl: dish.imageUrl
               });
+              setIsTrayOpen(true);
             }}
-            className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-xl bg-brand-cta/10 text-brand-cta border border-brand-cta/20 hover:bg-brand-cta hover:text-white transition-colors"
-            title={dish.variants && dish.variants.length > 0 ? "Select Size" : "Add to Tray"}
+            className="flex-1 text-center py-2.5 sm:py-3 px-4 bg-brand-cta text-white rounded-xl font-bold text-[10px] sm:text-sm transition shadow-md hover:shadow-lg hover:brightness-110"
           >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
+            <span className="flex items-center justify-center gap-2">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              Quick Order
+            </span>
           </motion.button>
         </div>
       </div>

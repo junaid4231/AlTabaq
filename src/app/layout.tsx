@@ -110,7 +110,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col bg-[#f8f6f2] text-[#1f1b16]">
         <CartProvider>
           {children}
-          <CartTray whatsappNumber={whatsapp} />
+          <CartTray settings={settings} />
         </CartProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />

@@ -36,7 +36,7 @@ export default function RestaurantHomePage({
   selectedCategory,
 }: RestaurantHomePageProps) {
   const router = useRouter();
-  const { addItem } = useCart();
+  const { addItem, setIsTrayOpen } = useCart();
   const [selectedDish, setSelectedDish] = useState<Dish | Deal | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(selectedCategory || "");
@@ -264,17 +264,22 @@ export default function RestaurantHomePage({
                           </span>
                         </div>
                         
-                        <a
-                          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the ${deal.name} deal!`)}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="relative flex items-center justify-center rounded-full bg-[#d29a2f] px-4 py-2 sm:px-6 sm:py-3 text-[9px] sm:text-[10px] font-bold tracking-widest text-white uppercase transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_20px_rgba(210,154,47,0.3)]"
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            addItem({
+                              id: deal._id,
+                              name: deal.name,
+                              price: deal.price,
+                              imageUrl: deal.imageUrl
+                            });
+                            setIsTrayOpen(true);
+                          }}
+                          className="relative flex items-center justify-center rounded-full bg-[#d29a2f] px-4 py-2 sm:px-6 sm:py-3 text-[9px] sm:text-[10px] font-bold tracking-widest text-white uppercase transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_20px_rgba(210,154,47,0.3)] active:scale-[0.98]"
                         >
-                          Claim
-                          <svg className="hidden sm:block w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                          </svg>
-                        </a>
+                          Quick Order
+                        </button>
                       </div>
                     </div>
                   </motion.div>
@@ -375,14 +380,6 @@ export default function RestaurantHomePage({
                           <span className="text-xs sm:text-sm font-sans text-[#8a6a3f]">AED</span> {deal.price}
                         </span>
                         <div className="flex items-center gap-2">
-                          <a
-                            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi, I'd like to order the deal: ${deal.name} (Price: AED ${deal.price})`)}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex-1 text-center rounded-full bg-brand-bg px-6 py-3 text-[11px] font-bold tracking-widest text-[#1f1b16] uppercase transition duration-300 hover:bg-[#d29a2f] hover:text-white"
-                          >
-                            Order
-                          </a>
                           <button
                             onClick={(e) => {
                               e.preventDefault();
@@ -393,6 +390,23 @@ export default function RestaurantHomePage({
                                 price: deal.price,
                                 imageUrl: deal.imageUrl
                               });
+                              setIsTrayOpen(true);
+                            }}
+                            className="flex-1 text-center rounded-full bg-brand-bg px-6 py-3 text-[11px] font-bold tracking-widest text-[#1f1b16] uppercase transition duration-300 hover:bg-[#d29a2f] hover:text-white shadow-xl active:scale-[0.98]"
+                          >
+                            Quick Order
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              addItem({
+                                id: deal._id,
+                                name: deal.name,
+                                price: deal.price,
+                                imageUrl: deal.imageUrl
+                              });
+                              setIsTrayOpen(true);
                             }}
                             className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-[#d29a2f] hover:border-[#d29a2f]"
                             title="Add to Tray"
@@ -470,6 +484,7 @@ export default function RestaurantHomePage({
                                 price: dish.price,
                                 imageUrl: dish.imageUrl
                               });
+                              setIsTrayOpen(true);
                             }}
                             className="rounded-full bg-[#1f1b16]/10 p-3 text-[#1f1b16] transition-colors hover:bg-[#d29a2f] hover:text-white"
                             title={dish.variants && dish.variants.length > 0 ? "Select Size" : "Add to Tray"}

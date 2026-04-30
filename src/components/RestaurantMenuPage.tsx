@@ -10,6 +10,7 @@ import DishModal from "@/components/DishModal";
 import CategoryTabs from "@/components/CategoryTabs";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { isDeliveryActive } from "@/lib/deliveryUtils";
 
 
 const getCategoryPlaceholder = (categoryName: string) => {
@@ -43,7 +44,7 @@ export default function RestaurantMenuPage({
   const [selectedDish, setSelectedDish] = useState<Dish | Deal | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
-  const { addItem } = useCart();
+  const { addItem, setIsTrayOpen } = useCart();
   const [searchQuery, setSearchQuery] = useState("");
   
   const containerRef = useRef(null);
@@ -124,6 +125,37 @@ export default function RestaurantMenuPage({
             >
               The <span className="italic text-[#f6d79f]">Menu</span>
             </motion.h1>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 1 }}
+              className="mt-8 flex flex-wrap items-center justify-center gap-4"
+            >
+              <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-md border border-white/10">
+                <span className={`flex h-2 w-2 rounded-full ${
+                  isDeliveryActive(
+                    settings.deliveryShift1Start,
+                    settings.deliveryShift1End,
+                    settings.deliveryShift2Start,
+                    settings.deliveryShift2End
+                  ) ? 'bg-green-500 animate-pulse' : 'bg-amber-500'
+                }`} />
+                <span className="text-[10px] font-bold text-white uppercase tracking-wider">
+                  {isDeliveryActive(
+                    settings.deliveryShift1Start,
+                    settings.deliveryShift1End,
+                    settings.deliveryShift2Start,
+                    settings.deliveryShift2End
+                  ) ? 'Accepting Orders' : 'Pre-orders Only'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 rounded-full bg-black/30 px-4 py-2 backdrop-blur-md border border-white/5">
+                <span className="text-[10px] font-medium text-white/90 uppercase tracking-[0.2em]">
+                  Delivery: {settings.deliveryShift1Start || "12 PM"} - {settings.deliveryShift1End || "4 PM"} & {settings.deliveryShift2Start || "6 PM"} - {settings.deliveryShift2End || "11 PM"}
+                </span>
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -261,14 +293,6 @@ export default function RestaurantMenuPage({
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <a
-                            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi, I'd like to order the deal: ${deal.name} (Price: AED ${deal.price})`)}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex-1 text-center rounded-full bg-brand-bg px-4 py-2 sm:px-8 sm:py-4 text-[8px] sm:text-[10px] font-black tracking-[0.2em] text-[#1f1b16] uppercase transition-all duration-300 hover:bg-[#d29a2f] hover:text-white shadow-xl hover:shadow-[#d29a2f]/20"
-                          >
-                            Order
-                          </a>
                           <button
                             onClick={(e) => {
                               e.preventDefault();
@@ -279,6 +303,23 @@ export default function RestaurantMenuPage({
                                 price: deal.price,
                                 imageUrl: deal.imageUrl
                               });
+                              setIsTrayOpen(true);
+                            }}
+                            className="flex-1 text-center rounded-full bg-brand-cta px-4 py-2 sm:px-8 sm:py-4 text-[8px] sm:text-[10px] font-black tracking-[0.2em] text-white uppercase transition-all duration-300 hover:brightness-110 shadow-xl active:scale-[0.98]"
+                          >
+                            Quick Order
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              addItem({
+                                id: deal._id,
+                                name: deal.name,
+                                price: deal.price,
+                                imageUrl: deal.imageUrl
+                              });
+                              setIsTrayOpen(true);
                             }}
                             className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-[#d29a2f] hover:border-[#d29a2f]"
                             title="Add to Tray"
@@ -358,6 +399,7 @@ export default function RestaurantMenuPage({
                                 price: dish.price,
                                 imageUrl: dish.imageUrl
                               });
+                              setIsTrayOpen(true);
                             }}
                             className="rounded-full bg-[#1f1b16]/10 p-3 sm:p-4 text-[#1f1b16] transition-all duration-300 hover:bg-[#d29a2f] hover:text-white"
                             title={dish.variants && dish.variants.length > 0 ? "Select Size" : "Add to Tray"}
