@@ -88,8 +88,8 @@ export default async function RootLayout({
         "Saturday",
         "Sunday"
       ],
-      "opens": "11:00",
-      "closes": "23:00"
+      "opens": "00:00",
+      "closes": "23:59"
     },
     "menu": "https://altabaq.com/menu",
     "servesCuisine": "Pakistani, Desi, Asian",
