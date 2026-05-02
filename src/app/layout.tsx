@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { CartProvider } from "@/context/CartContext";
+import { getHomepageData } from "@/lib/sanityClient";
+import CartTray from "@/components/CartTray";
 
 const bodyFont = Inter({
   variable: "--font-body",
@@ -15,43 +18,45 @@ const headingFont = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "AlTabaq Restaurant | Premium Pakistani Cuisine in Ajman",
+  metadataBase: new URL("https://altabaq.com"),
+  title: "Al Tabaq Restaurant | Authentic Pakistani Food in Ajman, UAE",
   description:
-    "AlTabaq Restaurant brings authentic Pakistani desi dishes in an elegant Ajman dining experience. Explore our menu and order directly on WhatsApp.",
+    "Al Tabaq Restaurant serves authentic halal Pakistani food in Ajman UAE. Fresh karahi, BBQ, handi, biryani and more. Order directly on WhatsApp.",
   keywords: [
     "Pakistani restaurant Ajman",
-    "Desi food Ajman",
-    "Karahi Ajman",
-    "Biryani Ajman",
-    "AlTabaq Restaurant",
-    "Best Pakistani Food UAE",
+    "halal restaurant Ajman",
+    "desi food Ajman",
+    "karahi Ajman",
+    "biryani Ajman",
+    "BBQ Ajman",
+    "Pakistani food UAE",
+    "Al Tabaq restaurant",
+    "restaurant Jurf Ajman",
+    "Pakistani restaurant near me UAE",
   ],
   openGraph: {
-    title: "AlTabaq Restaurant | Premium Pakistani Cuisine",
+    title: "Al Tabaq Restaurant | Authentic Pakistani Food in Ajman, UAE",
     description:
-      "Premium Pakistani restaurant in Ajman with elegant design, menu showcase, and instant WhatsApp ordering.",
+      "Authentic halal Pakistani food in Ajman UAE. Fresh karahi, BBQ, handi, biryani and more. Order directly on WhatsApp.",
     type: "website",
     url: "https://altabaq.com",
-    siteName: "AlTabaq",
-    locale: "en_US",
+    siteName: "Al Tabaq Restaurant",
+    locale: "en_AE",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AlTabaq Restaurant | Premium Pakistani Cuisine",
-    description: "Authentic Pakistani dining experience in Ajman. Order via WhatsApp.",
+    title: "Al Tabaq Restaurant | Authentic Pakistani Food in Ajman, UAE",
+    description:
+      "Authentic halal Pakistani food in Ajman UAE. Karahi, BBQ, handi, biryani and more. Order on WhatsApp.",
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://altabaq.com",
   },
   robots: {
     index: true,
     follow: true,
   },
 };
-
-import { CartProvider } from "@/context/CartContext";
-import { getHomepageData } from "@/lib/sanityClient";
-import CartTray from "@/components/CartTray";
 
 export default async function RootLayout({
   children,
@@ -60,40 +65,47 @@ export default async function RootLayout({
 }>) {
   const data = await getHomepageData();
   const { settings } = data;
-  const whatsapp = settings.whatsapp;
 
-  // JSON-LD Restaurant Schema
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
-    "name": settings.restaurantName,
-    "image": "https://altabaq.com/logo.png",
+    name: settings.restaurantName,
+    image: "https://altabaq.com/logo.png",
     "@id": "https://altabaq.com",
-    "url": "https://altabaq.com",
-    "telephone": settings.phone,
-    "address": {
+    url: "https://altabaq.com",
+    telephone: settings.phone,
+    address: {
       "@type": "PostalAddress",
-      "streetAddress": settings.address,
-      "addressLocality": "Ajman",
-      "addressCountry": "AE"
+      streetAddress: settings.address,
+      addressLocality: "Ajman",
+      addressRegion: "Ajman",
+      addressCountry: "AE",
     },
-    "openingHoursSpecification": {
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "25.3948",
+      longitude: "55.5136",
+    },
+    openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
+      dayOfWeek: [
         "Monday",
         "Tuesday",
         "Wednesday",
         "Thursday",
         "Friday",
         "Saturday",
-        "Sunday"
+        "Sunday",
       ],
-      "opens": "00:00",
-      "closes": "23:59"
+      opens: "00:00",
+      closes: "23:59",
     },
-    "menu": "https://altabaq.com/menu",
-    "servesCuisine": "Pakistani, Desi, Asian",
-    "priceRange": "$$"
+    menu: "https://altabaq.com/menu",
+    servesCuisine: ["Pakistani", "Desi", "Halal"],
+    priceRange: "$$",
+    currenciesAccepted: "AED",
+    paymentAccepted: "Cash, Credit Card",
+    areaServed: ["Ajman", "Dubai", "Sharjah"],
   };
 
   return (
