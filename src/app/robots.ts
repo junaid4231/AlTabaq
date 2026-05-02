@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/studio/',
     },
-    sitemap: 'https://al-tabaq.vercel.app/sitemap.xml',
+    sitemap: 'https://altabaq.com/sitemap.xml',
   };
 }

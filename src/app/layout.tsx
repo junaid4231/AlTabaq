@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Premium Pakistani restaurant in Ajman with elegant design, menu showcase, and instant WhatsApp ordering.",
     type: "website",
-    url: "https://al-tabaq.vercel.app",
+    url: "https://altabaq.com",
     siteName: "AlTabaq",
     locale: "en_US",
   },
@@ -67,9 +67,9 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": settings.restaurantName,
-    "image": "https://al-tabaq.vercel.app/logo.png",
-    "@id": "https://al-tabaq.vercel.app",
-    "url": "https://al-tabaq.vercel.app",
+    "image": "https://altabaq.com/logo.png",
+    "@id": "https://altabaq.com",
+    "url": "https://altabaq.com",
     "telephone": settings.phone,
     "address": {
       "@type": "PostalAddress",
@@ -91,7 +91,7 @@ export default async function RootLayout({
       "opens": "11:00",
       "closes": "23:00"
     },
-    "menu": "https://al-tabaq.vercel.app/menu",
+    "menu": "https://altabaq.com/menu",
     "servesCuisine": "Pakistani, Desi, Asian",
     "priceRange": "$$"
   };
