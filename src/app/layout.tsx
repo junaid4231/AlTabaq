@@ -42,12 +42,21 @@ export const metadata: Metadata = {
     url: "https://altabaq.com",
     siteName: "Al Tabaq Restaurant",
     locale: "en_AE",
+    images: [
+      {
+        url: "https://altabaq.com/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Al Tabaq Restaurant - Authentic Pakistani Cuisine",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Al Tabaq Restaurant | Authentic Pakistani Food in Ajman, UAE",
     description:
       "Authentic halal Pakistani food in Ajman UAE. Karahi, BBQ, handi, biryani and more. Order on WhatsApp.",
+    images: ["https://altabaq.com/logo.png"],
   },
   alternates: {
     canonical: "https://altabaq.com",
