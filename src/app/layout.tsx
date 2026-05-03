@@ -19,10 +19,13 @@ const headingFont = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://altabaq.com"),
-  title: "Al Tabaq Restaurant | Authentic Pakistani Food in Ajman, UAE",
+  title: "Al Tabaq | Authentic Pakistani Restaurant in Ajman, UAE",
   description:
-    "Al Tabaq Restaurant serves authentic halal Pakistani food in Ajman UAE. Fresh karahi, BBQ, handi, biryani and more. Order directly on WhatsApp.",
+    "Experience the finest halal Pakistani cuisine at Al Tabaq. Authentic Karahi, BBQ, Handi, and Biryani in the heart of Ajman. Order now via WhatsApp.",
   keywords: [
+    "Al Tabaq",
+    "Al Tabaq Ajman",
+    "Al Tabaq Restaurant",
     "Pakistani restaurant Ajman",
     "halal restaurant Ajman",
     "desi food Ajman",
@@ -30,17 +33,15 @@ export const metadata: Metadata = {
     "biryani Ajman",
     "BBQ Ajman",
     "Pakistani food UAE",
-    "Al Tabaq restaurant",
     "restaurant Jurf Ajman",
-    "Pakistani restaurant near me UAE",
   ],
   openGraph: {
-    title: "Al Tabaq Restaurant | Authentic Pakistani Food in Ajman, UAE",
+    title: "Al Tabaq | Authentic Pakistani Restaurant in Ajman, UAE",
     description:
-      "Authentic halal Pakistani food in Ajman UAE. Fresh karahi, BBQ, handi, biryani and more. Order directly on WhatsApp.",
+      "Experience the finest halal Pakistani cuisine at Al Tabaq. Authentic Karahi, BBQ, Handi, and Biryani. Now delivering in Ajman.",
     type: "website",
     url: "https://altabaq.com",
-    siteName: "Al Tabaq Restaurant",
+    siteName: "Al Tabaq",
     locale: "en_AE",
     images: [
       {
@@ -53,9 +54,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Al Tabaq Restaurant | Authentic Pakistani Food in Ajman, UAE",
+    title: "Al Tabaq | Authentic Pakistani Restaurant in Ajman, UAE",
     description:
-      "Authentic halal Pakistani food in Ajman UAE. Karahi, BBQ, handi, biryani and more. Order on WhatsApp.",
+      "Experience the finest halal Pakistani cuisine at Al Tabaq. Karahi, BBQ, Handi, and Biryani. Order on WhatsApp.",
     images: ["https://altabaq.com/logo.png"],
   },
   alternates: {
@@ -66,7 +67,12 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/logo.png",
+    icon: [
+      { url: "/logo.png" },
+      { url: "/logo.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.png", sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: "/logo.png",
     apple: "/logo.png",
   },
 };
