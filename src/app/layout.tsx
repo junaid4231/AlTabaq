@@ -133,6 +133,8 @@ export default async function RootLayout({
       className={`${bodyFont.variable} ${headingFont.variable} h-full antialiased`}
     >
       <head>
+        <link rel="icon" href="/logo.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/logo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
